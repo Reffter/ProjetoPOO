@@ -67,7 +67,7 @@ public class Produto {
     @Override
     public String toString() {
         return ID + " | " + Categoria + " | " + Designacao + " | " + Preco + " | " + Stock;
-    }
+    } 
 
     @Override
     public boolean equals(Object o) {
