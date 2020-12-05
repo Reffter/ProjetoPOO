@@ -1,5 +1,10 @@
 package project;
 
+import myinputs.Ler;
+
+import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Produto {
@@ -95,5 +100,68 @@ public class Produto {
         if (o == null || getClass() != o.getClass()) return false;
         Produto produto = (Produto) o;
         return Objects.equals(Categoria, produto.Categoria) && Objects.equals(Designacao, produto.Designacao);
+    }
+
+    public ArrayList<Produto> addProduct(ArrayList<Produto> alpa){
+        Produto pa = new Produto();
+        boolean doesProductExist = true;
+
+        System.out.println("Indique o nome do produto que pretende adicionar: ");
+        do {
+            pa.setDesignacao(Ler.umaString());
+
+            for (Produto i : alpa){
+                if (i.getDesignacao().toLowerCase(Locale.ROOT).equals(pa.getDesignacao().toLowerCase(Locale.ROOT))){
+                    System.out.println("Este produto ja existe!");
+                    doesProductExist = true;
+                }
+                else{
+                    doesProductExist = false;
+                }
+            }
+        }while(doesProductExist);
+
+        pa.setCategoria(Ler.umaString());
+        pa.setPreco(Ler.umDouble());
+        pa.setPrecoCompra(Ler.umDouble());
+        pa.setStock(Ler.umInt());
+
+        alpa.add(pa);
+        return alpa;
+    }
+
+    public ArrayList<Produto> removeProduct(ArrayList<Produto> alpa) throws Exception {
+        int numero = 0;
+        boolean numerovalido=false;
+
+        do{
+            numerovalido=true;
+            try{
+                System.out.println("Introduza um ID valido: ");
+                numero=Ler.umInt();
+                verificarnumero(numero);
+            }
+            catch(Exception e){
+            System.out.println("ID invalido!");
+            numerovalido=false;
+            }
+
+        }while(!numerovalido);
+
+        //se houver tempo, adicionar checkbox que mostra o produto e pergunta se quer remover
+
+        for (Produto i : alpa){
+            if(i.getID() == numero){
+                alpa.remove(i);
+                return alpa;
+            }
+        }
+    return alpa;
+    }
+
+    public void verificarnumero(int n) throws Exception {
+        if (n <0){
+            throw new Exception("Introduza um numero igual ou maior que zero");
+        }
     }
 }
