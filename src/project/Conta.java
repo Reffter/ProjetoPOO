@@ -11,6 +11,7 @@ public class Conta implements Serializable{
     private int NIF;
     private String endereco;
     private String senha;
+    private boolean cliente;
 
     public Conta(String primeiroNome, String ultimoNome, int NIF, String endereco, String senha){
         this.primeiroNome = primeiroNome;
@@ -18,6 +19,7 @@ public class Conta implements Serializable{
         this.NIF = NIF;
         this.endereco = endereco;
         this.senha = senha;
+        this.cliente = true;
     }
 
     public String getPrimeiroNome() {
@@ -60,7 +62,15 @@ public class Conta implements Serializable{
         this.senha = senha;
     }
 
-    public static void criarConta(ArrayList<Conta> c){
+    public void setCliente(boolean cliente) {
+        this.cliente = cliente;
+    }
+
+    public boolean getCliente(){
+        return cliente;
+    }
+
+    public void criarConta(ArrayList<Conta> c){
         System.out.println("Insira o seu NIF: ");
         int NIF = Ler.umInt();
         for (int i = 0; i < c.size(); i++) {
@@ -81,6 +91,8 @@ public class Conta implements Serializable{
         System.out.println("Insira o seu endereço: ");
         String endereco = Ler.umaString();
 
+        Conta novaConta = new Conta(primeiroNome, ultimoNome, NIF, endereco, senha);
+        c.add(novaConta);
 
         // atualizar ficheiro
         try {
@@ -89,6 +101,22 @@ public class Conta implements Serializable{
             os.flush(); // os dados são copiados de memória para o disco
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+
+        System.out.println("Conta criada!");
+    }
+
+    public void historicoCompras(ArrayList<Encomenda> encomendas){
+        if(cliente){ //Encomendas de cada cliente
+            for (Encomenda e: encomendas) {
+                if(e.getNIF() == NIF)
+                    System.out.println(e.toString());
+            }
+        }
+        else{ //Encomendas realizadas
+            for (Encomenda e: encomendas) {
+                System.out.println(e.toString());
+            }
         }
     }
 }
