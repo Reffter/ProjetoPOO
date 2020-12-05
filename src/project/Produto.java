@@ -6,14 +6,18 @@ public class Produto {
     private String Categoria;
     private String Designacao;
     private double Preco;
+    private double PrecoCompra;
     private int Stock;
-    private static int ID = 0;
+    private int ID;
+    private int ultimo = 0;
 
     public Produto(){
-        ID++;
+        ultimo++;
+        ID = ultimo;
         Categoria = "";
         Designacao = "";
         Preco = 0.0;
+        PrecoCompra = 0.0;
         Stock = 0;
     }
 
@@ -21,6 +25,14 @@ public class Produto {
         this.Categoria = Categoria;
         this.Designacao = Designacao;
         this.Preco = Preco;
+        this.Stock = Stock;
+    }
+
+    public Produto(String Categoria, String Designacao, double Preco, double PrecoCompra, int Stock){
+        this.Categoria = Categoria;
+        this.Designacao = Designacao;
+        this.Preco = Preco;
+        this.PrecoCompra = PrecoCompra;
         this.Stock = Stock;
     }
 
@@ -48,6 +60,14 @@ public class Produto {
         Preco = preco;
     }
 
+    public double getPrecoCompra() {
+        return PrecoCompra;
+    }
+
+    public void setPrecoCompra(double precoCompra) {
+        PrecoCompra = precoCompra;
+    }
+
     public int getStock() {
         return Stock;
     }
@@ -56,12 +76,12 @@ public class Produto {
         Stock = stock;
     }
 
-    public static int getID() {
+    public int getID() {
         return ID;
     }
 
-    public static void setID(int ID) {
-        Produto.ID = ID;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     @Override

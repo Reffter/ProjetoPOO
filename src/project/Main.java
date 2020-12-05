@@ -27,7 +27,11 @@ public class Main {
     }
 
     static void MenuFuncionario(){
-
+        System.out.println("Prima uma tecla:");
+        System.out.println("1 - Ver o catálogo");
+        System.out.println("2 - Realizar uma compra");
+        System.out.println("3 - Histórico de compras");
+        System.out.println("0 - Sair");
     }
 
     static void MenuCatalogo(ArrayList<Produto> produtos){
