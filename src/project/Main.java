@@ -24,19 +24,19 @@ public class Main {
         ArrayList<Conta> c = new ArrayList<Conta>();
 
         try {
-            ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("contas.dat"));
+            ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\contas.dat"));
             c = (ArrayList<Conta>) ficheiro.readObject();
         }
-        catch (IOException e){
-            System.out.println(e.getMessage());
-        }
-        catch ( ClassNotFoundException e) {
+        catch (IOException | ClassNotFoundException e){
             System.out.println(e.getMessage());
         }
 
         System.out.println("Bem vindo à loja Auto24");
-        Pessoa p = new Pessoa("Zeze", "Tenrinho", 248184350, "Rua 69");
-        Conta c1 = new Conta(p, "abc123");
-        c1.RegistoConta(c);
+        //Pessoa p = ;
+        Conta c2 = new Conta(new Pessoa("Quim", "Tenrinho", 333333353, "Rua 69"), "abc123");
+        c2.RegistoConta(c);
+        for (Conta aa: c) {
+            System.out.println(aa.toString());
+        }
     }
 }

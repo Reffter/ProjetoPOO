@@ -22,11 +22,18 @@ public class Conta extends Pessoa implements Serializable{
         this.senha = senha;
     }
 
+    @Override
+    public String toString() {
+        return "Conta{" +
+                "senha='" + senha + '\'' + super.toString() +
+                '}';
+    }
+
     public void RegistoConta(ArrayList<Conta> c){
         for (Conta c1: c) {
             if(c1.getNIF() == super.NIF){
                 System.out.println("A conta já existe!");
-                return;
+     //           return;
                 }
             }
 
@@ -36,7 +43,7 @@ public class Conta extends Pessoa implements Serializable{
 
         // atualizar ficheiro
         try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("contas.dat"));
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\contas.dat"));
             // escrever o objeto alunos no ficheiro
             os.writeObject(c);
             os.flush(); // os dados são copiados de memória para o disco
