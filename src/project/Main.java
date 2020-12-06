@@ -5,7 +5,6 @@ import myinputs.Ler;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Main {
@@ -29,8 +28,9 @@ public class Main {
     static void MenuFuncionario(){
         System.out.println("Prima uma tecla:");
         System.out.println("1 - Ver o catálogo");
-        System.out.println("2 - Realizar uma compra");
-        System.out.println("3 - Histórico de compras");
+        System.out.println("2 - Histórico de compras");
+        System.out.println("3 - Alterar catálogo");
+        System.out.println("4 - Ver estatísticas");
         System.out.println("0 - Sair");
     }
 
@@ -80,34 +80,59 @@ public class Main {
 
 
     public static void main(String[] args) {
-        CarregarContas();
-        CarregarEncomendas();
-        CarregarProdutos();
+        ArrayList<Conta> contas = CarregarContas();
+        ArrayList<Encomenda> encomendas = CarregarEncomendas();
+        ArrayList<Produto> produtos = CarregarProdutos();
+
         int escolha;
         System.out.println("Bem vindo à loja Auto24");
         boolean logado = false;
+
+        Conta c;
+        Estatistica estatisticas;
 
         do{
             if(!logado){
                 Menu1();
                 escolha = Ler.umInt();
                 switch (escolha){
-                    case 1:
-                        FuncAlunos.inserirAluno(alunos);
-                        break;
                     case 2:
-                        FuncAlunos.consultarAlunoNumero(alunos);
+                        c = new Conta();
+                        c.criarConta(contas);
                         break;
                     case 3:
-                        FuncAlunos.consultarAlunoNome(alunos);
+                        //iniciar sessão
                         break;
                     }
             }
             /*else if(logado && for cliente){
-                mostrar menu cliente
+                MenuCliente();
+                escolha = Ler.umInt();
+                switch (escolha){
+                    case 1:
+                        MenuCatalogo(produtos);
+                        break;
+                    case 2:
+                        Realizar uma compra
+                    case 3:
+                        Histórico de compras
+                    }
             }
             else if(logado && for empregado){
-                mostrar menu empregado
+                MenuEmpregado();
+                escolha = Ler.umInt();
+                switch (escolha){
+                    case 1:
+                        MenuCatalogo(produtos);
+                        break;
+                    case 2:
+                        Histórico de compras
+                    case 3:
+                        Alterar catálogo
+                    case 4:
+                        e = new Estatistica();
+                        System.out.println(e.produzirEstatisticas(contas, encomendas, produtos));
+                    }
             }*/
         } while(escolha != 0);
     }

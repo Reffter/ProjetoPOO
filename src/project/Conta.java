@@ -13,6 +13,15 @@ public class Conta implements Serializable{
     private String senha;
     private boolean cliente;
 
+    public Conta(){
+        primeiroNome = "";
+        ultimoNome = "";
+        NIF = 0;
+        endereco = "";
+        senha = "";
+        cliente = true;
+    }
+
     public Conta(String primeiroNome, String ultimoNome, int NIF, String endereco, String senha){
         this.primeiroNome = primeiroNome;
         this.ultimoNome = ultimoNome;
