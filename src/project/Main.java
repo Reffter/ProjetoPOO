@@ -29,12 +29,14 @@ public class Main {
         System.out.println("Prima uma tecla:");
         System.out.println("1 - Ver o catálogo");
         System.out.println("2 - Histórico de compras");
-        System.out.println("3 - Alterar catálogo");
-        System.out.println("4 - Ver estatísticas");
-        System.out.println("5 - Logout");
+        System.out.println("3 - Adicionar produto");
+        System.out.println("4 - Remover produto");
+        System.out.println("5 - Ver estatísticas");
+        System.out.println("6 - Logout");
     }
 
     static void MenuCatalogo(ArrayList<Produto> produtos){
+        System.out.println("ID | Categoria | Designacao | Preço | Stock");
         for (Produto p: produtos) {
             System.out.println(p.toString());
         }
@@ -43,7 +45,7 @@ public class Main {
     static ArrayList<Pessoa> CarregarContas(){
         ArrayList<Pessoa> contas = new ArrayList<Pessoa>();
         try {
-            ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\contas.dat"));
+            ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("/home/reffter/Desktop/ProjetoPOO/src/project/files/contas.dat"));
             contas = (ArrayList<Pessoa>) ficheiro.readObject();
         }
         catch (IOException | ClassNotFoundException e){
@@ -53,11 +55,11 @@ public class Main {
         return contas;
     }
 
-    static ArrayList<Encomenda> CarregarEncomendas(){
-        ArrayList<Encomenda> encomendas = new ArrayList<Encomenda>();
+    static ArrayList<Produto> CarregarEncomendas(){
+        ArrayList<Produto> encomendas = new ArrayList<Produto>();
         try {
-            ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\encomendas.dat"));
-            encomendas = (ArrayList<Encomenda>) ficheiro.readObject();
+            ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("/home/reffter/Desktop/ProjetoPOO/src/project/files/encomendas.dat"));
+            encomendas = (ArrayList<Produto>) ficheiro.readObject();
         }
         catch (IOException | ClassNotFoundException e){
             System.out.println(e.getMessage());
@@ -69,7 +71,7 @@ public class Main {
     static ArrayList<Produto> CarregarProdutos(){
         ArrayList<Produto> produtos = new ArrayList<Produto>();
         try {
-            ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\produtos.dat"));
+            ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("/home/reffter/Desktop/ProjetoPOO/src/project/files/produtos.dat"));
             produtos = (ArrayList<Produto>) ficheiro.readObject();
         }
         catch (IOException | ClassNotFoundException e){
@@ -78,9 +80,9 @@ public class Main {
         return produtos;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         ArrayList<Pessoa> contas = CarregarContas();
-        ArrayList<Encomenda> encomendas = CarregarEncomendas();
+        ArrayList<Produto> encomendas = CarregarEncomendas();
         ArrayList<Produto> produtos = CarregarProdutos();
 
         int escolha = -1;
@@ -89,12 +91,15 @@ public class Main {
 
         Conta c;
         Estatistica estatisticas;
-
+        Produto p;
         do{
             if(estadoLogin == 0){
                 Menu1();
                 escolha = Ler.umInt();
                 switch (escolha){
+                    case 1:
+                        MenuCatalogo(produtos);
+                        break;
                     case 2:
                         c = new Conta();
                         contas = c.criarConta(contas);
@@ -134,13 +139,19 @@ public class Main {
                         //Histórico de compras
                         break;
                     case 3:
-                        //Alterar catálogo
+                        p = new Produto();
+                        Produto.setUltimo(produtos.size());
+                        produtos = p.addProduct(produtos);
                         break;
                     case 4:
+                        p = new Produto();
+                        produtos = p.removeProduct(produtos);
+                        break;
                         //e = new Estatistica();
                         //System.out.println(e.produzirEstatisticas(contas, encomendas, produtos));
-                        break;
                     case 5:
+                        break;
+                    case 6:
                         estadoLogin = 0;
                         break;
                     }
