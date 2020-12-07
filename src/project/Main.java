@@ -22,7 +22,7 @@ public class Main {
         System.out.println("1 - Ver o catálogo");
         System.out.println("2 - Realizar uma compra");
         System.out.println("3 - Histórico de compras");
-        System.out.println("0 - Sair");
+        System.out.println("4 - Logout");
     }
 
     static void MenuFuncionario(){
@@ -31,7 +31,7 @@ public class Main {
         System.out.println("2 - Histórico de compras");
         System.out.println("3 - Alterar catálogo");
         System.out.println("4 - Ver estatísticas");
-        System.out.println("0 - Sair");
+        System.out.println("5 - Logout");
     }
 
     static void MenuCatalogo(ArrayList<Produto> produtos){
@@ -85,13 +85,13 @@ public class Main {
 
         int escolha = -1;
         System.out.println("Bem vindo à loja Auto24");
-        boolean logado = false;
+        int estadoLogin = 0;
 
         Conta c;
         Estatistica estatisticas;
 
         do{
-            if(!logado){
+            if(estadoLogin == 0){
                 Menu1();
                 escolha = Ler.umInt();
                 switch (escolha){
@@ -101,11 +101,11 @@ public class Main {
                         break;
                     case 3:
                         Auth auth = new Auth();
-                        auth.authentication(contas);
+                        estadoLogin = auth.authentication(contas);
                         break;
                     }
             }
-            /*else if(logado && for cliente){
+            else if(estadoLogin == 1){
                 MenuCliente();
                 escolha = Ler.umInt();
                 switch (escolha){
@@ -113,27 +113,38 @@ public class Main {
                         MenuCatalogo(produtos);
                         break;
                     case 2:
-                        Realizar uma compra
+                        //Realizar uma compra
+                        break;
                     case 3:
-                        Histórico de compras
+                        //Histórico de compras
+                        break;
+                    case 4:
+                        estadoLogin = 0;
+                        break;
                     }
             }
-            else if(logado && for empregado){
-                MenuEmpregado();
+            else if(estadoLogin == 2){
+                MenuFuncionario();
                 escolha = Ler.umInt();
                 switch (escolha){
                     case 1:
                         MenuCatalogo(produtos);
                         break;
                     case 2:
-                        Histórico de compras
+                        //Histórico de compras
+                        break;
                     case 3:
-                        Alterar catálogo
+                        //Alterar catálogo
+                        break;
                     case 4:
-                        e = new Estatistica();
-                        System.out.println(e.produzirEstatisticas(contas, encomendas, produtos));
+                        //e = new Estatistica();
+                        //System.out.println(e.produzirEstatisticas(contas, encomendas, produtos));
+                        break;
+                    case 5:
+                        estadoLogin = 0;
+                        break;
                     }
-            }*/
+            }
         } while(escolha != 0);
     }
 }
