@@ -46,10 +46,10 @@ public class Estatistica {
     }
 
     //contas, encomendas, produtos
-    public String produzirEstatisticas(ArrayList<Conta> c, ArrayList<Encomenda> e, ArrayList<Produto> p){
+    /*public String produzirEstatisticas(ArrayList<Conta> c, ArrayList<Encomenda> e, ArrayList<Produto> p){
         numEncomendasRealizadas = e.size();
         lucroTotal = ???
         clienteComMaisEncomendas = ???
         IDprodutoMaisVendido = ???
-    }
+    }*/
 }

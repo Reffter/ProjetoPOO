@@ -9,8 +9,6 @@ public class Encomenda extends Produto {
     private boolean estado = false;
     private int NIFencomenda = 0;
 
-
-
     public Encomenda(Produto p,int IDencomenda, int qtd, boolean estado, int NIFencomenda){
         super.setDesignacao(p.getDesignacao());
         super.setPreco(p.getPreco());

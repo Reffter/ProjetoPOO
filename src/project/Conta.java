@@ -115,7 +115,7 @@ public class Conta implements Serializable{
         System.out.println("Conta criada!");
     }
 
-    public void historicoCompras(ArrayList<Encomenda> encomendas){
+    /*public void historicoCompras(ArrayList<Encomenda> encomendas){
         if(cliente){ //Encomendas de cada cliente
             for (Encomenda e: encomendas) {
                 if(e.getNIF() == NIF)
@@ -127,5 +127,5 @@ public class Conta implements Serializable{
                 System.out.println(e.toString());
             }
         }
-    }
+    }*/
 }

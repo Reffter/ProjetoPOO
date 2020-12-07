@@ -84,7 +84,7 @@ public class Main {
         ArrayList<Encomenda> encomendas = CarregarEncomendas();
         ArrayList<Produto> produtos = CarregarProdutos();
 
-        int escolha;
+        int escolha = -1;
         System.out.println("Bem vindo à loja Auto24");
         boolean logado = false;
 

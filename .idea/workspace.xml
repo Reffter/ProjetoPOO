@@ -110,6 +110,7 @@
     </key>
   </component>
   <component name="RunManager">
+<<<<<<< Updated upstream
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -123,6 +124,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+=======
+>>>>>>> Stashed changes
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="project.Main" />
       <module name="ProjetoPOO" />
@@ -148,6 +151,7 @@
       <option name="presentableId" value="Default" />
       <updated>1607179578525</updated>
       <workItem from="1607179581570" duration="4265000" />
+      <workItem from="1607283418443" duration="26000" />
     </task>
     <servers />
   </component>
