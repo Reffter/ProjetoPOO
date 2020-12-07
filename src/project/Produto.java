@@ -5,23 +5,20 @@ import myinputs.Ler;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.sql.SQLOutput;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Objects;
 
-public class Produto {
+public class Produto implements Serializable {
     private String Categoria;
     private String Designacao;
     private double PrecoVenda;
     private double PrecoCompra;
     private int Stock;
     private int ID;
-    private int ultimo = 0;
+    private static int ultimo = 0;
 
     public Produto(){
-        ultimo++;
-        ID = ultimo;
         Categoria = "";
         Designacao = "";
         PrecoVenda = 0.0;
@@ -29,17 +26,12 @@ public class Produto {
         Stock = 0;
     }
 
-    public Produto(String Categoria, String Designacao, double Preco, int Stock){
+    public Produto(String Categoria, String Designacao, double PrecoVenda, double PrecoCompra, int Stock){
+        ultimo++;
+        this.ID = ultimo;
         this.Categoria = Categoria;
         this.Designacao = Designacao;
-        this.PrecoVenda = Preco;
-        this.Stock = Stock;
-    }
-
-    public Produto(String Categoria, String Designacao, double Preco, double PrecoCompra, int Stock){
-        this.Categoria = Categoria;
-        this.Designacao = Designacao;
-        this.PrecoVenda = Preco;
+        this.PrecoVenda = PrecoVenda;
         this.PrecoCompra = PrecoCompra;
         this.Stock = Stock;
     }
@@ -92,6 +84,10 @@ public class Produto {
         this.ID = ID;
     }
 
+    public static void setUltimo(int ultimo) {
+        Produto.ultimo = ultimo;
+    }
+
     @Override
     public String toString() {
         return ID + " | " + Categoria + " | " + Designacao + " | " + PrecoVenda + " | " + Stock;
@@ -109,64 +105,67 @@ public class Produto {
     //        uma arraylist dos produtos numa funcao
 
     public ArrayList<Produto> addProduct(ArrayList<Produto> alpa){
-        Produto pa = new Produto();
-        boolean doesProductExist = true;
+        boolean doesProductExist = false;
 
-        System.out.println("Indique o nome do produto que pretende adicionar: ");
         do {
-            pa.setDesignacao(Ler.umaString());
-
+            System.out.println("Indique o nome do produto que pretende adicionar: ");
+            Designacao = Ler.umaString();
+            doesProductExist = false;
             for (Produto i : alpa){
-                if (i.getDesignacao().toLowerCase(Locale.ROOT).equals(pa.getDesignacao().toLowerCase(Locale.ROOT))){
+                if (i.getDesignacao().toLowerCase().equals(Designacao.toLowerCase())){
                     System.out.println("Este produto ja existe!");
                     doesProductExist = true;
-                }
-                else{
-                    doesProductExist = false;
+                    break;
                 }
             }
         }while(doesProductExist);
 
-        pa.setCategoria(Ler.umaString());
-        pa.setPrecoVenda(Ler.umDouble());
-        pa.setPrecoCompra(Ler.umDouble());
-        pa.setStock(Ler.umInt());
+        System.out.println("Insira a categoria:");
+        Categoria = Ler.umaString();
 
-        alpa.add(pa);
+        System.out.println("Insira o preço de venda:");
+        PrecoVenda = Ler.umDouble();
+
+        System.out.println("Qual o preço de compra ao fornecedor?");
+        PrecoCompra = Ler.umDouble();
+
+        System.out.println("Quanto stock existe?");
+        Stock = Ler.umInt();
+        Produto p = new Produto(Categoria, Designacao, PrecoVenda, PrecoCompra, Stock);
+
+        alpa.add(new Produto(Categoria, Designacao, PrecoVenda, PrecoCompra, Stock));
 
         // atualizar ficheiro
         try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\contas.dat"));
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("/home/reffter/Desktop/ProjetoPOO/src/project/files/produtos.dat"));
             os.writeObject(alpa); // escrever o objeto no ficheiro
             os.flush(); // os dados são copiados de memória para o disco
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("Produto adicionado!");
         return alpa;
     }
 
     public ArrayList<Produto> removeProduct(ArrayList<Produto> alpa) throws Exception {
         int numero = 0;
-
         numero = verificarID();
-        // se houver tempo, adicionar checkbox que mostra o produto
-        // e pergunta se quer remover
 
         for (Produto i : alpa){
             if(i.getID() == numero){
                 alpa.remove(i);
-                return alpa;
+                break;
             }
         }
         // atualizar ficheiro
         try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\contas.dat"));
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("/home/reffter/Desktop/ProjetoPOO/src/project/files/contas.dat"));
             os.writeObject(alpa); // escrever o objeto no ficheiro
             os.flush(); // os dados são copiados de memória para o disco
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
+        System.out.println("Produto removido!\n");
         return alpa;
     }
 
@@ -197,7 +196,7 @@ public class Produto {
 
         // atualizar ficheiro
         try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\contas.dat"));
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("/home/reffter/Desktop/ProjetoPOO/src/project/files/contas.dat"));
             os.writeObject(alpa); // escrever o objeto no ficheiro
             os.flush(); // os dados são copiados de memória para o disco
         } catch (IOException e) {
@@ -234,7 +233,7 @@ public class Produto {
 
         // atualizar ficheiro
         try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\contas.dat"));
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("/home/reffter/Desktop/ProjetoPOO/src/project/files/contas.dat"));
             os.writeObject(alpa); // escrever o objeto no ficheiro
             os.flush(); // os dados são copiados de memória para o disco
         } catch (IOException e) {
