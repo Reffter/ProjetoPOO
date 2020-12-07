@@ -11,7 +11,7 @@ public class Encomenda extends Produto {
 
     public Encomenda(Produto p,int IDencomenda, int qtd, boolean estado, int NIFencomenda){
         super.setDesignacao(p.getDesignacao());
-        super.setPreco(p.getPreco());
+        super.setPrecoVenda(p.getPrecoVenda());
         super.setID(p.getID());
         this.IDencomenda = IDencomenda;
         this.qnt = qtd;

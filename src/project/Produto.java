@@ -2,6 +2,9 @@ package project;
 
 import myinputs.Ler;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -10,7 +13,7 @@ import java.util.Objects;
 public class Produto {
     private String Categoria;
     private String Designacao;
-    private double Preco;
+    private double PrecoVenda;
     private double PrecoCompra;
     private int Stock;
     private int ID;
@@ -21,7 +24,7 @@ public class Produto {
         ID = ultimo;
         Categoria = "";
         Designacao = "";
-        Preco = 0.0;
+        PrecoVenda = 0.0;
         PrecoCompra = 0.0;
         Stock = 0;
     }
@@ -29,14 +32,14 @@ public class Produto {
     public Produto(String Categoria, String Designacao, double Preco, int Stock){
         this.Categoria = Categoria;
         this.Designacao = Designacao;
-        this.Preco = Preco;
+        this.PrecoVenda = Preco;
         this.Stock = Stock;
     }
 
     public Produto(String Categoria, String Designacao, double Preco, double PrecoCompra, int Stock){
         this.Categoria = Categoria;
         this.Designacao = Designacao;
-        this.Preco = Preco;
+        this.PrecoVenda = Preco;
         this.PrecoCompra = PrecoCompra;
         this.Stock = Stock;
     }
@@ -57,12 +60,12 @@ public class Produto {
         Designacao = designacao;
     }
 
-    public double getPreco() {
-        return Preco;
+    public double getPrecoVenda() {
+        return PrecoVenda;
     }
 
-    public void setPreco(double preco) {
-        Preco = preco;
+    public void setPrecoVenda(double preco) {
+        PrecoVenda = preco;
     }
 
     public double getPrecoCompra() {
@@ -91,7 +94,7 @@ public class Produto {
 
     @Override
     public String toString() {
-        return ID + " | " + Categoria + " | " + Designacao + " | " + Preco + " | " + Stock;
+        return ID + " | " + Categoria + " | " + Designacao + " | " + PrecoVenda + " | " + Stock;
     }
 
     @Override
@@ -101,6 +104,9 @@ public class Produto {
         Produto produto = (Produto) o;
         return Objects.equals(Categoria, produto.Categoria) && Objects.equals(Designacao, produto.Designacao);
     }
+
+    //alpa -> ArrayList de Produto Auxiliar, tentar usar esta sigla quando se usa
+    //        uma arraylist dos produtos numa funcao
 
     public ArrayList<Produto> addProduct(ArrayList<Produto> alpa){
         Produto pa = new Produto();
@@ -122,33 +128,29 @@ public class Produto {
         }while(doesProductExist);
 
         pa.setCategoria(Ler.umaString());
-        pa.setPreco(Ler.umDouble());
+        pa.setPrecoVenda(Ler.umDouble());
         pa.setPrecoCompra(Ler.umDouble());
         pa.setStock(Ler.umInt());
 
         alpa.add(pa);
+
+        // atualizar ficheiro
+        try {
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\contas.dat"));
+            os.writeObject(alpa); // escrever o objeto no ficheiro
+            os.flush(); // os dados são copiados de memória para o disco
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         return alpa;
     }
 
     public ArrayList<Produto> removeProduct(ArrayList<Produto> alpa) throws Exception {
         int numero = 0;
-        boolean numerovalido=false;
 
-        do{
-            numerovalido=true;
-            try{
-                System.out.println("Introduza um ID valido: ");
-                numero=Ler.umInt();
-                verificarnumero(numero);
-            }
-            catch(Exception e){
-            System.out.println("ID invalido!");
-            numerovalido=false;
-            }
-
-        }while(!numerovalido);
-
-        //se houver tempo, adicionar checkbox que mostra o produto e pergunta se quer remover
+        numero = verificarID();
+        // se houver tempo, adicionar checkbox que mostra o produto
+        // e pergunta se quer remover
 
         for (Produto i : alpa){
             if(i.getID() == numero){
@@ -156,12 +158,118 @@ public class Produto {
                 return alpa;
             }
         }
-    return alpa;
+        // atualizar ficheiro
+        try {
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\contas.dat"));
+            os.writeObject(alpa); // escrever o objeto no ficheiro
+            os.flush(); // os dados são copiados de memória para o disco
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return alpa;
+    }
+
+    public ArrayList<Produto> addPromo(ArrayList<Produto> alpa) throws Exception{
+        int numero;
+        double desconto = 0;
+        boolean numerovalido = false;
+
+        numero = verificarID();
+        for (Produto i: alpa){
+            if(i.getID()==numero){
+                System.out.println("O produto foi encontrado, introduza a percentagem de desconto que quer aplicar: ");
+                do{
+                    numerovalido=true;
+                    try{
+                        desconto = Ler.umInt();
+                    }
+                    catch(Exception e){
+                        System.out.println("Desconto invalido!");
+                        numerovalido=false;
+                    }
+                }while(!numerovalido);
+
+                i.setPrecoVenda(i.getPrecoVenda()*((100-desconto)/100));
+                return alpa;
+            }
+        }
+
+        // atualizar ficheiro
+        try {
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\contas.dat"));
+            os.writeObject(alpa); // escrever o objeto no ficheiro
+            os.flush(); // os dados são copiados de memória para o disco
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return alpa;
+    }
+
+    public ArrayList<Produto> removePromo(ArrayList<Produto> alpa) throws Exception{
+        int numero;
+        double desconto = 0;
+        boolean numerovalido = false;
+
+        numero = verificarID();
+        for (Produto i: alpa){
+            if(i.getID()==numero){
+                System.out.println("O produto foi encontrado, introduza a percentagem de desconto que foi aplicado: ");
+                do{
+                    numerovalido=true;
+                    try{
+                        desconto = Ler.umInt();
+                    }
+                    catch(Exception e){
+                        System.out.println("Desconto invalido!");
+                        numerovalido=false;
+                    }
+                }while(!numerovalido);
+
+                i.setPrecoVenda(i.getPrecoVenda()/((100-desconto)/100));
+                return alpa;
+            }
+        }
+
+        // atualizar ficheiro
+        try {
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\contas.dat"));
+            os.writeObject(alpa); // escrever o objeto no ficheiro
+            os.flush(); // os dados são copiados de memória para o disco
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return alpa;
+    }
+
+    public int verificarID(){
+        int n=0;
+        boolean numerovalido=false;
+
+        do{
+            numerovalido=true;
+            try{
+                System.out.println("Introduza um ID valido: ");
+                n=Ler.umInt();
+                verificarnumero(n);
+            }
+            catch(Exception e){
+                System.out.println("ID invalido!");
+                numerovalido=false;
+            }
+
+        }while(!numerovalido);
+
+        System.out.println("O ID '"+n+"' existe!");
+
+        return n;
     }
 
     public void verificarnumero(int n) throws Exception {
-        if (n <0){
-            throw new Exception("Introduza um numero igual ou maior que zero");
+        if (n < 1){
+            throw new Exception("Introduza um numero maior que zero");
         }
     }
 }
