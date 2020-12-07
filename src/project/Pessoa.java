@@ -1,6 +1,8 @@
 package project;
 
-public class Pessoa {
+import java.io.Serializable;
+
+public class Pessoa implements Serializable {
     protected String primeiroNome;
     protected String ultimoNome;
     protected int NIF;
