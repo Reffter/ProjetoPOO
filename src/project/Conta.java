@@ -61,6 +61,15 @@ public class Conta extends Pessoa implements Serializable{
         String endereco = Ler.umaString();
 
         Conta novaConta = new Conta(new Pessoa(primeiroNome, ultimoNome, NIF, endereco), senha);
+
+        //transformar a conta com NIF 1 em empregado
+        if(novaConta.getNIF() == 1){
+            novaConta.setCliente(false);
+            c.add(novaConta);
+            System.out.println("Conta staff criada!");
+            return c;
+        }
+
         c.add(novaConta);
 
         // atualizar ficheiro
