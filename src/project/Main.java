@@ -40,11 +40,11 @@ public class Main {
         }
     }
 
-    static ArrayList<Conta> CarregarContas(){
-        ArrayList<Conta> contas = new ArrayList<Conta>();
+    static ArrayList<Pessoa> CarregarContas(){
+        ArrayList<Pessoa> contas = new ArrayList<Pessoa>();
         try {
             ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\contas.dat"));
-            contas = (ArrayList<Conta>) ficheiro.readObject();
+            contas = (ArrayList<Pessoa>) ficheiro.readObject();
         }
         catch (IOException | ClassNotFoundException e){
             System.out.println(e.getMessage());
@@ -78,9 +78,8 @@ public class Main {
         return produtos;
     }
 
-
     public static void main(String[] args) {
-        ArrayList<Conta> contas = CarregarContas();
+        ArrayList<Pessoa> contas = CarregarContas();
         ArrayList<Encomenda> encomendas = CarregarEncomendas();
         ArrayList<Produto> produtos = CarregarProdutos();
 
@@ -98,10 +97,11 @@ public class Main {
                 switch (escolha){
                     case 2:
                         c = new Conta();
-                        c.criarConta(contas);
+                        contas = c.criarConta(contas);
                         break;
                     case 3:
-                        //iniciar sessão
+                        Auth auth = new Auth();
+                        auth.authentication(contas);
                         break;
                     }
             }

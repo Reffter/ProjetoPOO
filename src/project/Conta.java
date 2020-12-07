@@ -3,64 +3,24 @@ package project;
 import myinputs.Ler;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Conta implements Serializable{
-    private String primeiroNome;
-    private String ultimoNome;
-    private int NIF;
-    private String endereco;
-    private String senha;
+public class Conta extends Pessoa implements Serializable{
+    protected String senha;
     private boolean cliente;
 
     public Conta(){
-        primeiroNome = "";
-        ultimoNome = "";
-        NIF = 0;
-        endereco = "";
         senha = "";
         cliente = true;
     }
 
-    public Conta(String primeiroNome, String ultimoNome, int NIF, String endereco, String senha){
-        this.primeiroNome = primeiroNome;
-        this.ultimoNome = ultimoNome;
-        this.NIF = NIF;
-        this.endereco = endereco;
+    public Conta(Pessoa p, String senha){
+        super.primeiroNome = p.primeiroNome;
+        super.ultimoNome = p.ultimoNome;
+        super.NIF = p.NIF;
+        super.endereco = p.endereco;
         this.senha = senha;
-        this.cliente = true;
-    }
-
-    public String getPrimeiroNome() {
-        return primeiroNome;
-    }
-
-    public void setPrimeiroNome(String primeiroNome) {
-        this.primeiroNome = primeiroNome;
-    }
-
-    public String getUltimoNome() {
-        return ultimoNome;
-    }
-
-    public void setUltimoNome(String ultimoNome) {
-        this.ultimoNome = ultimoNome;
-    }
-
-    public int getNIF() {
-        return NIF;
-    }
-
-    public void setNIF(int NIF) {
-        this.NIF = NIF;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
     }
 
     public String getSenha() {
@@ -79,13 +39,13 @@ public class Conta implements Serializable{
         return cliente;
     }
 
-    public void criarConta(ArrayList<Conta> c){
+    public ArrayList<Pessoa> criarConta(ArrayList<Pessoa> c){
         System.out.println("Insira o seu NIF: ");
         int NIF = Ler.umInt();
         for (int i = 0; i < c.size(); i++) {
             if(c.get(i).getNIF() == NIF){
                 System.out.println("A conta já existe!");
-                return;
+                return c;
             }
         }
         System.out.println("Insira a sua senha: ");
@@ -100,7 +60,7 @@ public class Conta implements Serializable{
         System.out.println("Insira o seu endereço: ");
         String endereco = Ler.umaString();
 
-        Conta novaConta = new Conta(primeiroNome, ultimoNome, NIF, endereco, senha);
+        Conta novaConta = new Conta(new Pessoa(primeiroNome, ultimoNome, NIF, endereco), senha);
         c.add(novaConta);
 
         // atualizar ficheiro
@@ -113,6 +73,7 @@ public class Conta implements Serializable{
         }
 
         System.out.println("Conta criada!");
+        return c;
     }
 
     /*public void historicoCompras(ArrayList<Encomenda> encomendas){
