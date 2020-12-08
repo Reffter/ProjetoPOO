@@ -17,6 +17,7 @@ public class Produto implements Serializable {
     private int Stock;
     private int ID;
     private static int ultimo = 0;
+    private double Desconto;
 
     public Produto(){
         Categoria = "";
@@ -24,6 +25,7 @@ public class Produto implements Serializable {
         PrecoVenda = 0.0;
         PrecoCompra = 0.0;
         Stock = 0;
+        Desconto = 0;
     }
 
     public Produto(String Categoria, String Designacao, double PrecoVenda, double PrecoCompra, int Stock){
@@ -34,6 +36,7 @@ public class Produto implements Serializable {
         this.PrecoVenda = PrecoVenda;
         this.PrecoCompra = PrecoCompra;
         this.Stock = Stock;
+        this.Desconto = 0;
     }
 
     public String getCategoria() {
@@ -88,6 +91,14 @@ public class Produto implements Serializable {
         Produto.ultimo = ultimo;
     }
 
+    public void setDesconto(double desconto) {
+        Desconto = desconto;
+    }
+
+    public double getDesconto() {
+        return Desconto;
+    }
+
     @Override
     public String toString() {
         return ID + " | " + Categoria + " | " + Designacao + " | " + PrecoVenda + " | " + Stock;
@@ -131,7 +142,6 @@ public class Produto implements Serializable {
 
         System.out.println("Quanto stock existe?");
         Stock = Ler.umInt();
-        Produto p = new Produto(Categoria, Designacao, PrecoVenda, PrecoCompra, Stock);
 
         alpa.add(new Produto(Categoria, Designacao, PrecoVenda, PrecoCompra, Stock));
 
@@ -159,7 +169,7 @@ public class Produto implements Serializable {
         }
         // atualizar ficheiro
         try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\contas.dat"));
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\produtos.dat"));
             os.writeObject(alpa); // escrever o objeto no ficheiro
             os.flush(); // os dados são copiados de memória para o disco
         } catch (IOException e) {
@@ -190,13 +200,14 @@ public class Produto implements Serializable {
                 }while(!numerovalido);
 
                 i.setPrecoVenda(i.getPrecoVenda()*((100-desconto)/100));
+                i.setDesconto(desconto);
                 return alpa;
             }
         }
 
         // atualizar ficheiro
         try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\contas.dat"));
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\produtos.dat"));
             os.writeObject(alpa); // escrever o objeto no ficheiro
             os.flush(); // os dados são copiados de memória para o disco
         } catch (IOException e) {
@@ -227,13 +238,14 @@ public class Produto implements Serializable {
                 }while(!numerovalido);
 
                 i.setPrecoVenda(i.getPrecoVenda()/((100-desconto)/100));
+                i.setDesconto(0);
                 return alpa;
             }
         }
 
         // atualizar ficheiro
         try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\contas.dat"));
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\produtos.dat"));
             os.writeObject(alpa); // escrever o objeto no ficheiro
             os.flush(); // os dados são copiados de memória para o disco
         } catch (IOException e) {

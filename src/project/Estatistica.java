@@ -97,9 +97,15 @@ public class Estatistica {
         return aux1;
     }
 
-
-
-
+    public void produtosEmDesconto(ArrayList<Produto> produtos){
+        ArrayList<Produto> produtosDesconto = new ArrayList<Produto>();
+        for (Produto produto: produtos) {
+            if(produto.getDesconto() != 0){
+                produtosDesconto.add(produto);
+            }
+        }
+        System.out.println(produtosDesconto.toString());
+    }
 
     /* static void MenuEstatisticas{
             System.out.println("Prima uma tecla:");

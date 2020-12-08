@@ -139,8 +139,8 @@ public class Main {
                         //Histórico de compras
                         break;
                     case 3:
-                        p = new Produto();
                         Produto.setUltimo(produtos.size());
+                        p = new Produto();
                         produtos = p.addProduct(produtos);
                         break;
                     case 4:
