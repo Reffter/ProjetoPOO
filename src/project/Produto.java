@@ -91,6 +91,10 @@ public class Produto implements Serializable {
         Produto.ultimo = ultimo;
     }
 
+    public static int getUltimo() {
+        return ultimo;
+    }
+
     public void setDesconto(double desconto) {
         Desconto = desconto;
     }
@@ -147,7 +151,8 @@ public class Produto implements Serializable {
 
         // atualizar ficheiro
         try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\produtos.dat"));
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src\\project\\files\\produtos.dat"));
+            os.writeInt(Produto.getUltimo());
             os.writeObject(alpa); // escrever o objeto no ficheiro
             os.flush(); // os dados são copiados de memória para o disco
         } catch (IOException e) {
@@ -169,7 +174,8 @@ public class Produto implements Serializable {
         }
         // atualizar ficheiro
         try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\produtos.dat"));
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src\\project\\files\\produtos.dat"));
+            os.writeInt(Produto.getUltimo());
             os.writeObject(alpa); // escrever o objeto no ficheiro
             os.flush(); // os dados são copiados de memória para o disco
         } catch (IOException e) {
@@ -207,7 +213,7 @@ public class Produto implements Serializable {
 
         // atualizar ficheiro
         try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\produtos.dat"));
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src\\project\\files\\produtos.dat"));
             os.writeObject(alpa); // escrever o objeto no ficheiro
             os.flush(); // os dados são copiados de memória para o disco
         } catch (IOException e) {
@@ -245,7 +251,7 @@ public class Produto implements Serializable {
 
         // atualizar ficheiro
         try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\produtos.dat"));
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src\\project\\files\\produtos.dat"));
             os.writeObject(alpa); // escrever o objeto no ficheiro
             os.flush(); // os dados são copiados de memória para o disco
         } catch (IOException e) {

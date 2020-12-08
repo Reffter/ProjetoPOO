@@ -13,7 +13,7 @@ public class Auth{
         senha_auth = "";
     }
 
-    public int authentication(ArrayList<Pessoa> c)
+    public Login authentication(ArrayList<Pessoa> c, Login account)
     {
         System.out.println("NIF: ");
         NIF_auth = Ler.umInt();
@@ -23,13 +23,23 @@ public class Auth{
         for(Pessoa pessoas : c) {
             if (pessoas.getNIF() == NIF_auth && ((Conta) pessoas).getSenha().equals(senha_auth)){
                 System.out.println("Login efetuado!");
+
                 if(NIF_auth == 1){
-                    return 2;
+                    account = new Login(pessoas, ((Conta) pessoas).getSenha());
+                    account.setEstadoLogin(2);
+                    return account;
                 }
-                return 1;
+                account = new Login(pessoas, ((Conta) pessoas).getSenha());
+                account.setEstadoLogin(1);
+                return account;
             }
         }
         System.out.println("Login não efetuado!");
-        return 0;
+
+        account = new Login();
+        account.setEstadoLogin(0);
+        return account;
     }
 }
+
+//account = new Conta(pessoas, ((Conta) pessoas).getSenha());

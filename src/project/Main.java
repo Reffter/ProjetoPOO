@@ -35,6 +35,16 @@ public class Main {
         System.out.println("6 - Logout");
     }
 
+    static void MenuEstatisticas(){
+        System.out.println("Prima uma tecla:");
+        System.out.println("1 - Encomendas realizadas");
+        System.out.println("2 - Lucro total");
+        System.out.println("3 - Produtos que se encontram em desconto");
+        System.out.println("4 - Cliente com mais encomendas");
+        System.out.println("5 - ID do Produto mais vendido");
+        System.out.println("6 - Voltar atrás");
+    }
+
     static void MenuCatalogo(ArrayList<Produto> produtos){
         System.out.println("ID | Categoria | Designacao | Preço | Stock");
         for (Produto p: produtos) {
@@ -45,7 +55,7 @@ public class Main {
     static ArrayList<Pessoa> CarregarContas(){
         ArrayList<Pessoa> contas = new ArrayList<Pessoa>();
         try {
-            ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\contas.dat"));
+            ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("src\\project\\files\\contas.dat"));
             contas = (ArrayList<Pessoa>) ficheiro.readObject();
         }
         catch (IOException | ClassNotFoundException e){
@@ -58,7 +68,9 @@ public class Main {
     static ArrayList<Produto> CarregarEncomendas(){
         ArrayList<Produto> encomendas = new ArrayList<Produto>();
         try {
-            ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\encomendas.dat"));
+            ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("src\\project\\files\\encomendas.dat"));
+            int ult = ficheiro.readInt();
+            Encomenda.setUltimo(ult);
             encomendas = (ArrayList<Produto>) ficheiro.readObject();
         }
         catch (IOException | ClassNotFoundException e){
@@ -71,7 +83,9 @@ public class Main {
     static ArrayList<Produto> CarregarProdutos(){
         ArrayList<Produto> produtos = new ArrayList<Produto>();
         try {
-            ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\produtos.dat"));
+            ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("src\\project\\files\\produtos.dat"));
+            int ult = ficheiro.readInt();
+            Produto.setUltimo(ult);
             produtos = (ArrayList<Produto>) ficheiro.readObject();
         }
         catch (IOException | ClassNotFoundException e){
@@ -89,11 +103,13 @@ public class Main {
         System.out.println("Bem vindo à loja Auto24");
         int estadoLogin = 0;
 
-        Conta c;
-        Estatistica estatisticas;
+        Conta c = new Conta();
         Produto p;
+        Encomenda e;
+        Login login = new Login();
+
         do{
-            if(estadoLogin == 0){
+            if(login.getEstadoLogin() == 0){
                 Menu1();
                 escolha = Ler.umInt();
                 switch (escolha){
@@ -106,11 +122,11 @@ public class Main {
                         break;
                     case 3:
                         Auth auth = new Auth();
-                        estadoLogin = auth.authentication(contas);
+                        login = auth.authentication(contas, login);
                         break;
                     }
             }
-            else if(estadoLogin == 1){
+            else if(login.getEstadoLogin() == 1){
                 MenuCliente();
                 escolha = Ler.umInt();
                 switch (escolha){
@@ -118,17 +134,23 @@ public class Main {
                         MenuCatalogo(produtos);
                         break;
                     case 2:
-                        //Realizar uma compra
+                        try {
+                            e = new Encomenda();
+                            encomendas = e.realizarEncomenda(produtos, encomendas, login.getNIF());
+                        }
+                        catch(Exception exception){
+                            System.out.println(exception.getMessage());
+                        }
                         break;
                     case 3:
-                        //Histórico de compras
+                        System.out.println(encomendas.toString());
                         break;
                     case 4:
-                        estadoLogin = 0;
+                        login.setEstadoLogin(0);
                         break;
                     }
             }
-            else if(estadoLogin == 2){
+            else if(login.getEstadoLogin() == 2){
                 MenuFuncionario();
                 escolha = Ler.umInt();
                 switch (escolha){
@@ -139,7 +161,6 @@ public class Main {
                         //Histórico de compras
                         break;
                     case 3:
-                        Produto.setUltimo(produtos.size());
                         p = new Produto();
                         produtos = p.addProduct(produtos);
                         break;
@@ -147,12 +168,32 @@ public class Main {
                         p = new Produto();
                         produtos = p.removeProduct(produtos);
                         break;
-                        //e = new Estatistica();
-                        //System.out.println(e.produzirEstatisticas(contas, encomendas, produtos));
                     case 5:
+                        MenuEstatisticas();
+                        escolha = Ler.umInt();
+                        Estatistica estatisticas = new Estatistica();
+                        switch (escolha){
+                            case 1:
+                                System.out.println(encomendas.toString());
+                                break;
+                            case 2:
+                                System.out.println(estatisticas.getLucroTotal(encomendas));
+                                break;
+                            case 3:
+                                estatisticas.getProdutosEmDesconto(produtos);
+                                break;
+                            case 4:
+                                System.out.println(estatisticas.getClienteComMaisEncomendas(encomendas, contas));
+                                break;
+                            case 5:
+                                System.out.println(estatisticas.getProdutoMaisVendido(produtos, encomendas));
+                                break;
+                            case 6:
+                                break;
+                        }
                         break;
                     case 6:
-                        estadoLogin = 0;
+                        login.setEstadoLogin(0);
                         break;
                     }
             }

@@ -1,27 +1,30 @@
 package project;
-import java.io.*;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Objects;
+import myinputs.Ler;
 
 public class Encomenda extends Produto {
+    private static int ultimo = 0;
     private int IDencomenda = 0;
-    private int qnt = 0;
+    private int qtd = 0;
     private boolean estado = false;
     private int NIFencomenda = 0;
 
-    public Encomenda(Produto p,int IDencomenda, int qtd, boolean estado, int NIFencomenda){
+    public Encomenda(Produto p, int qtd, int NIFencomenda){
+        ultimo++;
         super.setDesignacao(p.getDesignacao());
         super.setPrecoVenda(p.getPrecoVenda());
         super.setID(p.getID());
-        this.IDencomenda = IDencomenda;
-        this.qnt = qtd;
-        this.estado = estado;
+        this.IDencomenda = ultimo;
+        this.qtd = qtd;
+        this.estado = false;
         this.NIFencomenda = NIFencomenda;
     }
 
-    public void incrementar_IDencomenda(){
-        IDencomenda ++;
-    }
+    public Encomenda(){}
 
     public int getIDencomenda() {
         return IDencomenda;
@@ -30,11 +33,11 @@ public class Encomenda extends Produto {
         this.IDencomenda = IDencomenda;
     }
 
-    public int getQnt() {
-        return qnt;
+    public int getQtd() {
+        return qtd;
     }
-    public void setQnt(int qnt) {
-        this.qnt = qnt;
+    public void setQtd(int qnt) {
+        this.qtd = qtd;
     }
 
     public boolean getEstado() {
@@ -51,9 +54,58 @@ public class Encomenda extends Produto {
         this.NIFencomenda = NIFencomenda;
     }
 
+    public static void setUltimo(int ultimo) {
+        Encomenda.ultimo = ultimo;
+    }
+
+    public static int getUltimo() {
+        return ultimo;
+    }
+
+    public ArrayList<Produto> realizarEncomenda(ArrayList<Produto> produtos, ArrayList<Produto> encomendas , int NIF){
+        System.out.println("Qual o ID do produto?");
+        super.setID(Ler.umInt());
+
+        System.out.println("Qual a quantidade a encomendar?");
+        this.qtd = Ler.umInt();
+
+        for (Produto produto: produtos) {
+            if(produto.getID() == super.getID() && qtd <= produto.getStock()){
+                encomendas.add(new Encomenda(produto, this.qtd, NIF));
+                produto.setStock(produto.getStock() - qtd);
+                System.out.println("Encomenda realizada!");
+
+                // atualizar ficheiro
+                try {
+                    ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src\\project\\files\\encomendas.dat"));
+                    os.writeInt(Encomenda.getUltimo());
+                    os.writeObject(encomendas); // escrever o objeto no ficheiro
+                    os.flush(); // os dados são copiados de memória para o disco
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
+                return encomendas;
+            }
+        }
+
+        System.out.println("Encomenda não efetuada!");
+
+        try {
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src\\project\\files\\encomendas.dat"));
+            os.writeInt(Encomenda.getUltimo());
+            os.writeObject(encomendas); // escrever o objeto no ficheiro
+            os.flush(); // os dados são copiados de memória para o disco
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return encomendas;
+    }
+
     @Override
     public String toString() {
-        return "Encomenda{" + "IDencomenda=" + IDencomenda + ", qnt=" + qnt + ", estado=" + estado + ", NIFencomenda=" + NIFencomenda + '}';
+        return "Encomenda{" + "IDencomenda=" + IDencomenda + ", qtd=" + qtd + ", estado=" + estado + ", NIFencomenda=" + NIFencomenda + '}';
     }
 
     @Override
@@ -62,6 +114,6 @@ public class Encomenda extends Produto {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Encomenda encomenda = (Encomenda) o;
-        return qnt == encomenda.qnt && estado == encomenda.estado && NIFencomenda == encomenda.NIFencomenda && IDencomenda == encomenda.IDencomenda;
+        return qtd == encomenda.qtd && estado == encomenda.estado && NIFencomenda == encomenda.NIFencomenda && IDencomenda == encomenda.IDencomenda;
     }
 }
