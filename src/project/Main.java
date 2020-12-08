@@ -46,17 +46,25 @@ public class Main {
     }
 
     static void MenuCatalogo(ArrayList<Produto> produtos){
-        System.out.println("ID | Categoria | Designacao | Preço | Stock");
+        System.out.println("ID | Categoria | Designacao | Preço | Stock\n");
         for (Produto p: produtos) {
             System.out.println(p.toString());
         }
     }
 
     static void MenuEncomendasCliente(ArrayList<Produto> encomendas, int NIF){
-        System.out.println("ID Encomenda | Designacao | Quantidade | Preco");
+        System.out.println("ID Encomenda | Designacao do Produto | Quantidade Encomendada | Preco a Pagar\n");
         for (Produto produtos: encomendas) {
             if(NIF == ((Encomenda)produtos).getNIFencomenda())
                 System.out.println(((Encomenda) produtos).getIDencomenda() + " | " + produtos.getDesignacao() + " | " + ((Encomenda) produtos).getQtd() + " | " + produtos.getPrecoVenda());
+        }
+    }
+
+    static void MenuEncomendasStaff(ArrayList<Produto> encomendas){
+        System.out.println("ID Encomenda | Designacao | Quantidade | Preco | NIF do Cliente\n");
+        for (Produto produtos: encomendas) {
+            System.out.println(produtos.toString());
+            //System.out.println(((Encomenda) produtos).getIDencomenda() + " | " + produtos.getDesignacao() + " | " + ((Encomenda) produtos).getQtd() + " | " + produtos.getPrecoVenda());
         }
     }
 
@@ -170,7 +178,7 @@ public class Main {
                         MenuCatalogo(produtos);
                         break;
                     case 2:
-                        //Histórico de compras
+                        MenuEncomendasStaff(encomendas);
                         break;
                     case 3:
                         p = new Produto();
