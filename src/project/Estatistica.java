@@ -3,10 +3,10 @@ package project;
 import java.util.ArrayList;
 
 public class Estatistica {
-    public double getLucroTotal(ArrayList<Produto> produtos) {
+    public double getLucroTotal(ArrayList<Produto> encomendas) {
             double somatorioLucros = 0.0;
-            for(Produto produto: produtos){
-                somatorioLucros = ((Encomenda)produto).getPrecoVenda() - ((Encomenda)produto).getPrecoCompra();
+            for(Produto produtos: encomendas){
+                somatorioLucros = ((Encomenda)produtos).getPrecoVenda() - ((Encomenda)produtos).getPrecoCompra();
             }
             return somatorioLucros;
     }
