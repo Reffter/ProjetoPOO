@@ -3,7 +3,6 @@ package project;
 import myinputs.Ler;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Conta extends Pessoa implements Serializable{

@@ -158,7 +158,6 @@ public class Main {
                             ArrayList<ArrayList<Produto>> array = new ArrayList<ArrayList<Produto>>();
                             array = e.realizarEncomenda(produtos, encomendas, login.getNIF());
                             encomendas = array.get(0);
-                            System.out.println(array.get(1));
                             produtos = array.get(1);
 
                         }

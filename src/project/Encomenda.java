@@ -102,7 +102,6 @@ public class Encomenda extends Produto {
             if(produto.getID() == super.getID() && qtd <= produto.getStock()){
                 encomendas.add(new Encomenda(produto, this.qtd, NIF));
                 produto.setStock(produto.getStock() - qtd);
-                System.out.println(produto.toString());
                 System.out.println("Encomenda realizada!");
                 encomendaRealizada = true;
                 break;
@@ -129,7 +128,6 @@ public class Encomenda extends Produto {
         ArrayList<ArrayList<Produto>> array = new ArrayList<ArrayList<Produto>>();
         array.add(encomendas);
         array.add(produtos);
-        System.out.println(produtos);
         return array;
     }
 
