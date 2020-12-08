@@ -32,8 +32,9 @@ public class Main {
         System.out.println("3 - Adicionar produto");
         System.out.println("4 - Remover produto");
         System.out.println("5 - Alterar estado de uma encomenda");
-        System.out.println("6 - Ver estatísticas");
-        System.out.println("7 - Logout");
+        System.out.println("6 - Ver dados de um cliente");
+        System.out.println("7 - Ver estatísticas");
+        System.out.println("8 - Logout");
     }
 
     static void MenuEstatisticas(){
@@ -192,6 +193,14 @@ public class Main {
                         produtos = p.removeProduct(produtos);
                         break;
                     case 5:
+                        e = new Encomenda();
+                        encomendas = e.alterarEstado(encomendas);
+                        break;
+                    case 6:
+                        c = new Conta();
+                        c.verDadosCliente(contas);
+                        break;
+                    case 7:
                         MenuEstatisticas();
                         escolha = Ler.umInt();
                         Estatistica estatisticas = new Estatistica();
@@ -215,7 +224,7 @@ public class Main {
                                 break;
                         }
                         break;
-                    case 6:
+                    case 8:
                         login.setEstadoLogin(0);
                         break;
                     }

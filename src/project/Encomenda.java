@@ -62,6 +62,33 @@ public class Encomenda extends Produto {
         return ultimo;
     }
 
+    public ArrayList<Produto> alterarEstado(ArrayList<Produto> encomendas){
+        int lerEstado = 0;
+        System.out.println("Qual o ID de encomenda a alterar o estado?");
+        lerEstado = Ler.umInt();
+
+        for (int i = 0; i < encomendas.size(); i++) {
+            if(encomendas.get(i).getID() == lerEstado){
+                setEstado(true);
+                System.out.println("Estado alterado, encomenda entregue!");
+
+                try {
+                    ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src\\project\\files\\encomendas.dat"));
+                    os.writeInt(Encomenda.getUltimo());
+                    os.writeObject(encomendas); // escrever o objeto no ficheiro
+                    os.flush(); // os dados são copiados de memória para o disco
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
+                return encomendas;
+            }
+        }
+
+        System.out.println("Estado não alterado!");
+        return encomendas;
+    }
+
     public ArrayList<ArrayList<Produto>> realizarEncomenda(ArrayList<Produto> produtos, ArrayList<Produto> encomendas , int NIF){
         System.out.println("Qual o ID do produto?");
         super.setID(Ler.umInt());

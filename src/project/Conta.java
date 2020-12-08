@@ -85,17 +85,15 @@ public class Conta extends Pessoa implements Serializable{
         return c;
     }
 
-    /*public void historicoCompras(ArrayList<Encomenda> encomendas){
-        if(cliente){ //Encomendas de cada cliente
-            for (Encomenda e: encomendas) {
-                if(e.getNIF() == NIF)
-                    System.out.println(e.toString());
+    public void verDadosCliente(ArrayList<Pessoa> pessoa){
+        System.out.println("Introduza o NIF do Cliente:");
+        int NIF = Ler.umInt();
+
+        for (Pessoa pessoas: pessoa) {
+            if(pessoas.getNIF() == NIF){
+                System.out.println("Nome:" + pessoas.getPrimeiroNome());
+                return;
             }
         }
-        else{ //Encomendas realizadas
-            for (Encomenda e: encomendas) {
-                System.out.println(e.toString());
-            }
-        }
-    }*/
+    }
 }
