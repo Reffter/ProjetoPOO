@@ -52,6 +52,14 @@ public class Main {
         }
     }
 
+    static void MenuEncomendasCliente(ArrayList<Produto> encomendas, int NIF){
+        System.out.println("ID Encomenda | Designacao | Quantidade | Preco");
+        for (Produto produtos: encomendas) {
+            if(NIF == ((Encomenda)produtos).getNIFencomenda())
+                System.out.println(((Encomenda) produtos).getIDencomenda() + " | " + produtos.getDesignacao() + " | " + ((Encomenda) produtos).getQtd() + " | " + produtos.getPrecoVenda());
+        }
+    }
+
     static ArrayList<Pessoa> CarregarContas(){
         ArrayList<Pessoa> contas = new ArrayList<Pessoa>();
         try {
@@ -135,14 +143,19 @@ public class Main {
                     case 2:
                         try {
                             e = new Encomenda();
-                            encomendas = e.realizarEncomenda(produtos, encomendas, login.getNIF());
+                            ArrayList<ArrayList<Produto>> array = new ArrayList<ArrayList<Produto>>();
+                            array = e.realizarEncomenda(produtos, encomendas, login.getNIF());
+                            encomendas = array.get(0);
+                            System.out.println(array.get(1));
+                            produtos = array.get(1);
+
                         }
                         catch(Exception exception){
                             System.out.println(exception.getMessage());
                         }
                         break;
                     case 3:
-                        System.out.println(encomendas.toString());
+                        MenuEncomendasCliente(encomendas, login.getNIF());
                         break;
                     case 4:
                         login.setEstadoLogin(0);

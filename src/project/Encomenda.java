@@ -62,50 +62,53 @@ public class Encomenda extends Produto {
         return ultimo;
     }
 
-    public ArrayList<Produto> realizarEncomenda(ArrayList<Produto> produtos, ArrayList<Produto> encomendas , int NIF){
+    public ArrayList<ArrayList<Produto>> realizarEncomenda(ArrayList<Produto> produtos, ArrayList<Produto> encomendas , int NIF){
         System.out.println("Qual o ID do produto?");
         super.setID(Ler.umInt());
 
         System.out.println("Qual a quantidade a encomendar?");
         this.qtd = Ler.umInt();
 
+        boolean encomendaRealizada = false;
+
         for (Produto produto: produtos) {
             if(produto.getID() == super.getID() && qtd <= produto.getStock()){
                 encomendas.add(new Encomenda(produto, this.qtd, NIF));
                 produto.setStock(produto.getStock() - qtd);
+                System.out.println(produto.toString());
                 System.out.println("Encomenda realizada!");
-
-                // atualizar ficheiro
-                try {
-                    ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src\\project\\files\\encomendas.dat"));
-                    os.writeInt(Encomenda.getUltimo());
-                    os.writeObject(encomendas); // escrever o objeto no ficheiro
-                    os.flush(); // os dados são copiados de memória para o disco
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
-
-                return encomendas;
+                encomendaRealizada = true;
+                break;
             }
         }
 
-        System.out.println("Encomenda não efetuada!");
+        if(!encomendaRealizada)
+            System.out.println("Encomenda não efetuada!");
 
         try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src\\project\\files\\encomendas.dat"));
             os.writeInt(Encomenda.getUltimo());
             os.writeObject(encomendas); // escrever o objeto no ficheiro
+
+            os = new ObjectOutputStream(new FileOutputStream("src\\project\\files\\produtos.dat"));
+            os.writeInt(Produto.getUltimo());
+            os.writeObject(produtos); // escrever o objeto no ficheiro
+
             os.flush(); // os dados são copiados de memória para o disco
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
 
-        return encomendas;
+        ArrayList<ArrayList<Produto>> array = new ArrayList<ArrayList<Produto>>();
+        array.add(encomendas);
+        array.add(produtos);
+        System.out.println(produtos);
+        return array;
     }
 
     @Override
     public String toString() {
-        return "Encomenda{" + "IDencomenda=" + IDencomenda + ", qtd=" + qtd + ", estado=" + estado + ", NIFencomenda=" + NIFencomenda + '}';
+            return IDencomenda + " | " + getDesignacao() + " | " + qtd + " | " + getPrecoVenda() + " | " + NIFencomenda;
     }
 
     @Override

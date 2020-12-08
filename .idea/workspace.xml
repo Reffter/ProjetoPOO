@@ -96,6 +96,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../UBI/2o_Ano/POO/ProjetoPOO" />
+    <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
@@ -139,7 +140,7 @@
       <workItem from="1607357391741" duration="712000" />
       <workItem from="1607359568969" duration="151000" />
       <workItem from="1607361082451" duration="1408000" />
-      <workItem from="1607429273198" duration="6268000" />
+      <workItem from="1607429273198" duration="10857000" />
     </task>
     <servers />
   </component>
