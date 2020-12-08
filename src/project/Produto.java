@@ -137,7 +137,7 @@ public class Produto implements Serializable {
 
         // atualizar ficheiro
         try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("/home/reffter/Desktop/ProjetoPOO/src/project/files/produtos.dat"));
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\produtos.dat"));
             os.writeObject(alpa); // escrever o objeto no ficheiro
             os.flush(); // os dados são copiados de memória para o disco
         } catch (IOException e) {
@@ -159,7 +159,7 @@ public class Produto implements Serializable {
         }
         // atualizar ficheiro
         try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("/home/reffter/Desktop/ProjetoPOO/src/project/files/contas.dat"));
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\contas.dat"));
             os.writeObject(alpa); // escrever o objeto no ficheiro
             os.flush(); // os dados são copiados de memória para o disco
         } catch (IOException e) {
@@ -196,7 +196,7 @@ public class Produto implements Serializable {
 
         // atualizar ficheiro
         try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("/home/reffter/Desktop/ProjetoPOO/src/project/files/contas.dat"));
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\contas.dat"));
             os.writeObject(alpa); // escrever o objeto no ficheiro
             os.flush(); // os dados são copiados de memória para o disco
         } catch (IOException e) {
@@ -233,7 +233,7 @@ public class Produto implements Serializable {
 
         // atualizar ficheiro
         try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("/home/reffter/Desktop/ProjetoPOO/src/project/files/contas.dat"));
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\contas.dat"));
             os.writeObject(alpa); // escrever o objeto no ficheiro
             os.flush(); // os dados são copiados de memória para o disco
         } catch (IOException e) {

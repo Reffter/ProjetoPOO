@@ -45,7 +45,7 @@ public class Main {
     static ArrayList<Pessoa> CarregarContas(){
         ArrayList<Pessoa> contas = new ArrayList<Pessoa>();
         try {
-            ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("/home/reffter/Desktop/ProjetoPOO/src/project/files/contas.dat"));
+            ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\contas.dat"));
             contas = (ArrayList<Pessoa>) ficheiro.readObject();
         }
         catch (IOException | ClassNotFoundException e){
@@ -58,7 +58,7 @@ public class Main {
     static ArrayList<Produto> CarregarEncomendas(){
         ArrayList<Produto> encomendas = new ArrayList<Produto>();
         try {
-            ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("/home/reffter/Desktop/ProjetoPOO/src/project/files/encomendas.dat"));
+            ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\encomendas.dat"));
             encomendas = (ArrayList<Produto>) ficheiro.readObject();
         }
         catch (IOException | ClassNotFoundException e){
@@ -71,7 +71,7 @@ public class Main {
     static ArrayList<Produto> CarregarProdutos(){
         ArrayList<Produto> produtos = new ArrayList<Produto>();
         try {
-            ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("/home/reffter/Desktop/ProjetoPOO/src/project/files/produtos.dat"));
+            ObjectInputStream ficheiro = new ObjectInputStream (new FileInputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\produtos.dat"));
             produtos = (ArrayList<Produto>) ficheiro.readObject();
         }
         catch (IOException | ClassNotFoundException e){

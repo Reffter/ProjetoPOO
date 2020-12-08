@@ -60,7 +60,7 @@ public class Estatistica {
     public void lucrototal(ArrayList<Produto> e){
         double count = 0.0;
         for(Produto produto: e ){
-            count = ((Encomenda)produto).getPreco() - ((Encomenda)produto).getPrecoCompra();
+            count = ((Encomenda)produto).getPrecoVenda() - ((Encomenda)produto).getPrecoCompra();
         }
         lucroTotal = count;
     }
