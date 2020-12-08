@@ -91,7 +91,10 @@ public class Conta extends Pessoa implements Serializable{
 
         for (Pessoa pessoas: pessoa) {
             if(pessoas.getNIF() == NIF){
-                System.out.println("Nome:" + pessoas.getPrimeiroNome());
+                System.out.println("Nome: " + pessoas.getPrimeiroNome());
+                System.out.println("Apelido: " + pessoas.getUltimoNome());
+                System.out.println("NIF: " + pessoas.getNIF());
+                System.out.println("Endereço: " + pessoas.getEndereco());
                 return;
             }
         }
