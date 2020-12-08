@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Main {
 
-    static void Menu1(){
+    static void MenuInicial(){
         System.out.println("Prima uma tecla:");
         System.out.println("1 - Ver o catálogo");
         System.out.println("2 - Registar uma conta");
@@ -46,26 +46,28 @@ public class Main {
     }
 
     static void MenuCatalogo(ArrayList<Produto> produtos){
-        System.out.println("ID | Categoria | Designacao | Preço | Stock\n");
+        System.out.println("\nID | Categoria | Designacao | Preço | Stock");
         for (Produto p: produtos) {
             System.out.println(p.toString());
         }
+        System.out.println("\n");
     }
 
     static void MenuEncomendasCliente(ArrayList<Produto> encomendas, int NIF){
-        System.out.println("ID Encomenda | Designacao do Produto | Quantidade Encomendada | Preco a Pagar\n");
+        System.out.println("\nID Encomenda | Designacao do Produto | Quantidade Encomendada | Preco a Pagar");
         for (Produto produtos: encomendas) {
             if(NIF == ((Encomenda)produtos).getNIFencomenda())
                 System.out.println(((Encomenda) produtos).getIDencomenda() + " | " + produtos.getDesignacao() + " | " + ((Encomenda) produtos).getQtd() + " | " + produtos.getPrecoVenda());
         }
+        System.out.println("\n");
     }
 
     static void MenuEncomendasStaff(ArrayList<Produto> encomendas){
         System.out.println("ID Encomenda | Designacao | Quantidade | Preco | NIF do Cliente\n");
         for (Produto produtos: encomendas) {
             System.out.println(produtos.toString());
-            //System.out.println(((Encomenda) produtos).getIDencomenda() + " | " + produtos.getDesignacao() + " | " + ((Encomenda) produtos).getQtd() + " | " + produtos.getPrecoVenda());
         }
+        System.out.println("\n");
     }
 
     static ArrayList<Pessoa> CarregarContas(){
@@ -125,7 +127,7 @@ public class Main {
 
         do{
             if(login.getEstadoLogin() == 0){
-                Menu1();
+                MenuInicial();
                 escolha = Ler.umInt();
                 switch (escolha){
                     case 1:
