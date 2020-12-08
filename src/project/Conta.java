@@ -74,7 +74,7 @@ public class Conta extends Pessoa implements Serializable{
 
         // atualizar ficheiro
         try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\contas.dat"));
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Miguel\\Desktop\\UBI\\2o_Ano\\POO\\ProjetoPOO\\src\\project\\files\\contas.dat"));
             os.writeObject(c); // escrever o objeto no ficheiro
             os.flush(); // os dados são copiados de memória para o disco
         } catch (IOException e) {
