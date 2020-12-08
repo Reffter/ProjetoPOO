@@ -101,9 +101,8 @@ public class Main {
 
         int escolha = -1;
         System.out.println("Bem vindo à loja Auto24");
-        int estadoLogin = 0;
 
-        Conta c = new Conta();
+        Conta c;
         Produto p;
         Encomenda e;
         Login login = new Login();
