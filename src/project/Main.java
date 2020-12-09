@@ -208,10 +208,12 @@ public class Main {
                         escolha = Ler.umInt();
                         switch(escolha){
                             case 1:
-                                //Aplicar desconto
+                                p = new Produto();
+                                produtos = p.addPromo(produtos);
                                 break;
                             case 2:
-                                //Remover desconto
+                                p = new Produto();
+                                produtos = p.removePromo(produtos);
                                 break;
                         }
                         break;
