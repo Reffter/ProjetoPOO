@@ -31,10 +31,11 @@ public class Main {
         System.out.println("2 - Histórico de compras");
         System.out.println("3 - Adicionar produto");
         System.out.println("4 - Remover produto");
-        System.out.println("5 - Alterar estado de uma encomenda");
-        System.out.println("6 - Ver dados de um cliente");
-        System.out.println("7 - Ver estatísticas");
-        System.out.println("8 - Logout");
+        System.out.println("5 - Alterar um produto");
+        System.out.println("6 - Alterar estado de uma encomenda");
+        System.out.println("7 - Ver dados de um cliente");
+        System.out.println("8 - Ver estatísticas");
+        System.out.println("9 - Logout");
     }
 
     static void MenuEstatisticas(){
@@ -56,16 +57,16 @@ public class Main {
     }
 
     static void MenuEncomendasCliente(ArrayList<Produto> encomendas, int NIF){
-        System.out.println("\nID Encomenda | Designacao do Produto | Quantidade Encomendada | Preco a Pagar");
+        System.out.println("\nID Encomenda | Designacao do Produto | Quantidade Encomendada | Preco a Pagar | Estado");
         for (Produto produtos: encomendas) {
             if(NIF == ((Encomenda)produtos).getNIFencomenda())
-                System.out.println(((Encomenda) produtos).getIDencomenda() + " | " + produtos.getDesignacao() + " | " + ((Encomenda) produtos).getQtd() + " | " + produtos.getPrecoVenda());
+                System.out.println(((Encomenda) produtos).getIDencomenda() + " | " + produtos.getDesignacao() + " | " + ((Encomenda) produtos).getQtd() + " | " + produtos.getPrecoVenda() + " | " + ((Encomenda) produtos).getEstado());
         }
         System.out.println("\n");
     }
 
     static void MenuEncomendasStaff(ArrayList<Produto> encomendas){
-        System.out.println("ID Encomenda | Designacao | Quantidade | Preco | NIF do Cliente\n");
+        System.out.println("ID Encomenda | Designacao | Quantidade | Preco | NIF do Cliente | Estado\n");
         for (Produto produtos: encomendas) {
             System.out.println(produtos.toString());
         }
@@ -192,14 +193,18 @@ public class Main {
                         produtos = p.removeProduct(produtos);
                         break;
                     case 5:
+                        p = new Produto();
+                        //FALTA ACABAR
+                        break;
+                    case 6:
                         e = new Encomenda();
                         encomendas = e.alterarEstado(encomendas);
                         break;
-                    case 6:
+                    case 7:
                         c = new Conta();
                         c.verDadosCliente(contas);
                         break;
-                    case 7:
+                    case 8:
                         MenuEstatisticas();
                         escolha = Ler.umInt();
                         Estatistica estatisticas = new Estatistica();
@@ -223,7 +228,7 @@ public class Main {
                                 break;
                         }
                         break;
-                    case 8:
+                    case 9:
                         login.setEstadoLogin(0);
                         break;
                     }

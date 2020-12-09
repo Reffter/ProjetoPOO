@@ -10,7 +10,7 @@ public class Encomenda extends Produto {
     private static int ultimo = 0;
     private int IDencomenda = 0;
     private int qtd = 0;
-    private boolean estado = false;
+    private String estado;
     private int NIFencomenda = 0;
 
     public Encomenda(Produto p, int qtd, int NIFencomenda){
@@ -20,7 +20,7 @@ public class Encomenda extends Produto {
         super.setID(p.getID());
         this.IDencomenda = ultimo;
         this.qtd = qtd;
-        this.estado = false;
+        this.estado = "Não entregue";
         this.NIFencomenda = NIFencomenda;
     }
 
@@ -40,10 +40,11 @@ public class Encomenda extends Produto {
         this.qtd = qtd;
     }
 
-    public boolean getEstado() {
+    public String getEstado() {
         return estado;
     }
-    public void setEstado(boolean estado) {
+
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
@@ -63,14 +64,15 @@ public class Encomenda extends Produto {
     }
 
     public ArrayList<Produto> alterarEstado(ArrayList<Produto> encomendas){
-        int lerEstado = 0;
+        int lerIDencomenda = 0;
         System.out.println("Qual o ID de encomenda a alterar o estado?");
-        lerEstado = Ler.umInt();
+        lerIDencomenda = Ler.umInt();
 
         for (int i = 0; i < encomendas.size(); i++) {
-            if(encomendas.get(i).getID() == lerEstado){
-                setEstado(true);
-                System.out.println("Estado alterado, encomenda entregue!");
+            if(encomendas.get(i).getID() == lerIDencomenda){
+                System.out.println("Introduza o estado da encomenda:");
+                setEstado(Ler.umaString());
+                System.out.println("Estado alterado!");
 
                 try {
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src\\project\\files\\encomendas.dat"));
@@ -133,7 +135,7 @@ public class Encomenda extends Produto {
 
     @Override
     public String toString() {
-            return IDencomenda + " | " + getDesignacao() + " | " + qtd + " | " + getPrecoVenda() + " | " + NIFencomenda;
+            return IDencomenda + " | " + getDesignacao() + " | " + qtd + " | " + getPrecoVenda() + " | " + NIFencomenda + " | " + getEstado();
     }
 
     @Override
