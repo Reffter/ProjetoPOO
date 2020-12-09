@@ -252,7 +252,7 @@ public class Produto implements Serializable {
 
                 i.setPrecoVenda(i.getPrecoVenda()*((100-desconto)/100));
                 i.setDesconto(desconto);
-                return alpa;
+                break;
             }
         }
 
@@ -291,7 +291,7 @@ public class Produto implements Serializable {
 
                 i.setPrecoVenda(i.getPrecoVenda()/((100-desconto)/100));
                 i.setDesconto(0);
-                return alpa;
+                break;
             }
         }
 
