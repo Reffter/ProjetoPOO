@@ -32,10 +32,17 @@ public class Main {
         System.out.println("3 - Adicionar produto");
         System.out.println("4 - Remover produto");
         System.out.println("5 - Alterar um produto");
-        System.out.println("6 - Alterar estado de uma encomenda");
-        System.out.println("7 - Ver dados de um cliente");
-        System.out.println("8 - Ver estatísticas");
-        System.out.println("9 - Logout");
+        System.out.println("6 - Aplicar/remover desconto a produto");
+        System.out.println("7 - Alterar estado de uma encomenda");
+        System.out.println("8 - Ver dados de um cliente");
+        System.out.println("9 - Ver estatísticas");
+        System.out.println("10 - Logout");
+    }
+
+    static void MenuDesconto(){
+        System.out.println("Prima uma tecla:");
+        System.out.println("1 - Aplicar desconto");
+        System.out.println("2 - Remover desconto");
     }
 
     static void MenuEstatisticas(){
@@ -197,14 +204,26 @@ public class Main {
                         produtos = p.editarProduto(produtos);
                         break;
                     case 6:
+                        MenuDesconto();
+                        escolha = Ler.umInt();
+                        switch(escolha){
+                            case 1:
+                                //Aplicar desconto
+                                break;
+                            case 2:
+                                //Remover desconto
+                                break;
+                        }
+                        break;
+                    case 7:
                         e = new Encomenda();
                         encomendas = e.alterarEstado(encomendas);
                         break;
-                    case 7:
+                    case 8:
                         c = new Conta();
                         c.verDadosCliente(contas);
                         break;
-                    case 8:
+                    case 9:
                         MenuEstatisticas();
                         escolha = Ler.umInt();
                         Estatistica estatisticas = new Estatistica();
@@ -228,7 +247,7 @@ public class Main {
                                 break;
                         }
                         break;
-                    case 9:
+                    case 10:
                         login.setEstadoLogin(0);
                         break;
                     }
