@@ -80,7 +80,7 @@ public class Conta extends Pessoa implements Serializable{
             System.out.println(e.getMessage());
         }
 
-        System.out.println("Conta criada!");
+        System.out.println("Conta criada!\n");
         return c;
     }
 
@@ -97,5 +97,7 @@ public class Conta extends Pessoa implements Serializable{
                 return;
             }
         }
+
+        System.out.println("Cliente não encontrado!\n");
     }
 }

@@ -276,21 +276,10 @@ public class Produto implements Serializable {
 
         numero = verificarID();
         for (Produto i: alpa){
-            if(i.getID()==numero){
-                System.out.println("O produto foi encontrado, introduza a percentagem de desconto que foi aplicado: ");
-                do{
-                    numerovalido=true;
-                    try{
-                        desconto = Ler.umInt();
-                    }
-                    catch(Exception e){
-                        System.out.println("Desconto invalido!");
-                        numerovalido=false;
-                    }
-                }while(!numerovalido);
-
-                i.setPrecoVenda(i.getPrecoVenda()/((100-desconto)/100));
+            if(i.getID() == numero){
+                i.setPrecoVenda(i.getPrecoVenda()/((100-i.getDesconto())/100));
                 i.setDesconto(0);
+                System.out.println("O produto foi encontrado e o desconto removido!");
                 break;
             }
         }

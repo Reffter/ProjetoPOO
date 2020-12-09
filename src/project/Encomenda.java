@@ -87,7 +87,7 @@ public class Encomenda extends Produto {
             }
         }
 
-        System.out.println("Estado não alterado!");
+        System.out.println("Estado não alterado!\n");
         return encomendas;
     }
 
