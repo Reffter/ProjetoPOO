@@ -194,7 +194,7 @@ public class Main {
                         break;
                     case 5:
                         p = new Produto();
-                        //FALTA ACABAR
+                        produtos = p.editarProduto(produtos);
                         break;
                     case 6:
                         e = new Encomenda();

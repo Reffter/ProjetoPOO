@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -185,6 +186,50 @@ public class Produto implements Serializable {
         return alpa;
     }
 
+    public ArrayList<Produto> editarProduto(ArrayList<Produto> alpa) {
+        boolean produtoExiste = false;
+        System.out.println("Qual o ID do produto a editar?");
+        int editarID = Ler.umInt();
+
+        for(Produto produto : alpa){
+            if(produto.getID() == editarID){
+                System.out.println("Produto existe! Insira os novos dados abaixo:");
+
+                System.out.println("Insira a categoria:");
+                produto.setCategoria(Ler.umaString());
+
+                System.out.println("Insira a designação:");
+                produto.setDesignacao(Ler.umaString());
+
+                System.out.println("Insira o preço de venda:");
+                produto.setPrecoVenda(Ler.umDouble());
+
+                System.out.println("Qual o preço de compra ao fornecedor?");
+                produto.setPrecoCompra(Ler.umDouble());
+
+                System.out.println("Quanto stock existe?");
+                produto.setStock(Ler.umInt());
+
+                produtoExiste = true;
+                break;
+            }
+        }
+
+        if(!produtoExiste){
+            System.out.println("Produto não encontrado!");
+        }
+
+        try {
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src\\project\\files\\produtos.dat"));
+            os.writeInt(Produto.getUltimo());
+            os.writeObject(alpa); // escrever o objeto no ficheiro
+            os.flush(); // os dados são copiados de memória para o disco
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return alpa;
+    }
+
     public ArrayList<Produto> addPromo(ArrayList<Produto> alpa) throws Exception{
         int numero;
         double desconto = 0;
@@ -214,6 +259,7 @@ public class Produto implements Serializable {
         // atualizar ficheiro
         try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src\\project\\files\\produtos.dat"));
+            os.writeInt(Produto.getUltimo());
             os.writeObject(alpa); // escrever o objeto no ficheiro
             os.flush(); // os dados são copiados de memória para o disco
         } catch (IOException e) {
@@ -252,6 +298,7 @@ public class Produto implements Serializable {
         // atualizar ficheiro
         try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src\\project\\files\\produtos.dat"));
+            os.writeInt(Produto.getUltimo());
             os.writeObject(alpa); // escrever o objeto no ficheiro
             os.flush(); // os dados são copiados de memória para o disco
         } catch (IOException e) {
