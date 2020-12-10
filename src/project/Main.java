@@ -63,11 +63,19 @@ public class Main {
         System.out.println("\n");
     }
 
+    static void MenuCatalogoStaff(ArrayList<Produto> produtos){
+        System.out.println("\nID | Categoria | Designacao | Preço Venda | Stock | Preço Compra");
+        for (Produto p: produtos) {
+            System.out.println(p.toString() + " | " + p.getPrecoCompra());
+        }
+        System.out.println("\n");
+    }
+
     static void MenuEncomendasCliente(ArrayList<Produto> encomendas, int NIF){
         System.out.println("\nID Encomenda | Designacao do Produto | Quantidade Encomendada | Preco a Pagar | Estado");
         for (Produto produtos: encomendas) {
             if(NIF == ((Encomenda)produtos).getNIFencomenda())
-                System.out.println(((Encomenda) produtos).getIDencomenda() + " | " + produtos.getDesignacao() + " | " + ((Encomenda) produtos).getQtd() + " | " + produtos.getPrecoVenda() + " | " + ((Encomenda) produtos).getEstado());
+                System.out.println(((Encomenda) produtos).getIDencomenda() + " | " + produtos.getDesignacao() + " | " + ((Encomenda) produtos).getQtd() + " | " + (produtos.getPrecoVenda() * ((Encomenda) produtos).getQtd()) + " | " + ((Encomenda) produtos).getEstado());
         }
         System.out.println("\n");
     }
@@ -75,7 +83,7 @@ public class Main {
     static void MenuEncomendasStaff(ArrayList<Produto> encomendas){
         System.out.println("ID Encomenda | Designacao | Quantidade | Preco | NIF do Cliente | Estado\n");
         for (Produto produtos: encomendas) {
-            System.out.println(produtos.toString());
+            System.out.println(((Encomenda) produtos).getIDencomenda() + " | " + produtos.getDesignacao() + " | " + ((Encomenda) produtos).getQtd() + " | " + (produtos.getPrecoVenda() * ((Encomenda) produtos).getQtd()) + " | " + ((Encomenda) produtos).getNIFencomenda() + " | "+ ((Encomenda) produtos).getEstado());
         }
         System.out.println("\n");
     }
@@ -186,7 +194,7 @@ public class Main {
                 escolha = Ler.umInt();
                 switch (escolha){
                     case 1:
-                        MenuCatalogo(produtos);
+                        MenuCatalogoStaff(produtos);
                         break;
                     case 2:
                         MenuEncomendasStaff(encomendas);

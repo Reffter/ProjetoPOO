@@ -109,6 +109,10 @@ public class Produto implements Serializable {
         return ID + " | " + Categoria + " | " + Designacao + " | " + PrecoVenda + " | " + Stock;
     }
 
+    public String toStringEncomendas() {
+        return ID + " | " + Categoria + " | " + Designacao + " | " + PrecoVenda + " | " + Stock;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

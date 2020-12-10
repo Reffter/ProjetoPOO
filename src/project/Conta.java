@@ -40,7 +40,14 @@ public class Conta extends Pessoa implements Serializable{
 
     public ArrayList<Pessoa> criarConta(ArrayList<Pessoa> c){
         System.out.println("Insira o seu NIF: ");
-        int NIF = Ler.umInt();
+        NIF = Ler.umInt();
+
+        while(NIF != 1 && String.valueOf(NIF).length() != 9){
+            System.out.println("Insira um NIF com 9 dígitos");
+            NIF = Ler.umInt();
+        }
+
+
         for (int i = 0; i < c.size(); i++) {
             if(c.get(i).getNIF() == NIF){
                 System.out.println("A conta já existe!");

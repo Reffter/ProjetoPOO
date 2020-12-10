@@ -63,16 +63,17 @@ public class Encomenda extends Produto {
         return ultimo;
     }
 
-    public ArrayList<Produto> alterarEstado(ArrayList<Produto> encomendas){
+    public ArrayList<Produto> alterarEstado(ArrayList<Produto> encomendas) {
         int lerIDencomenda = 0;
         System.out.println("Qual o ID de encomenda a alterar o estado?");
         lerIDencomenda = Ler.umInt();
 
-        for (int i = 0; i < encomendas.size(); i++) {
-            if(encomendas.get(i).getID() == lerIDencomenda){
+        for (Produto encomenda : encomendas) {
+            if (encomenda.getID() == lerIDencomenda) {
                 System.out.println("Introduza o estado da encomenda:");
-                setEstado(Ler.umaString());
+                ((Encomenda) encomenda).setEstado(Ler.umaString());
                 System.out.println("Estado alterado!");
+                System.out.println(encomenda.toString());
 
                 try {
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src\\project\\files\\encomendas.dat"));
@@ -86,7 +87,6 @@ public class Encomenda extends Produto {
                 return encomendas;
             }
         }
-
         System.out.println("Estado não alterado!\n");
         return encomendas;
     }
