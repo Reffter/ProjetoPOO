@@ -69,11 +69,10 @@ public class Encomenda extends Produto {
         lerIDencomenda = Ler.umInt();
 
         for (Produto encomenda : encomendas) {
-            if (encomenda.getID() == lerIDencomenda) {
+            if (((Encomenda) encomenda).getIDencomenda() == lerIDencomenda) {
                 System.out.println("Introduza o estado da encomenda:");
                 ((Encomenda) encomenda).setEstado(Ler.umaString());
                 System.out.println("Estado alterado!");
-                System.out.println(encomenda.toString());
 
                 try {
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src\\project\\files\\encomendas.dat"));

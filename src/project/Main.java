@@ -28,7 +28,7 @@ public class Main {
     static void MenuFuncionario(){
         System.out.println("Prima uma tecla:");
         System.out.println("1 - Ver o catálogo");
-        System.out.println("2 - Histórico de compras");
+        System.out.println("2 - Histórico de encomendas");
         System.out.println("3 - Adicionar produto");
         System.out.println("4 - Remover produto");
         System.out.println("5 - Alterar um produto");
@@ -136,7 +136,7 @@ public class Main {
         ArrayList<Produto> produtos = CarregarProdutos();
 
         int escolha = -1;
-        System.out.println("Bem vindo à loja Auto24");
+        System.out.println("\nBem vindo à loja Auto24");
 
         Conta c;
         Produto p;
@@ -239,19 +239,19 @@ public class Main {
                         Estatistica estatisticas = new Estatistica();
                         switch (escolha){
                             case 1:
-                                System.out.println(encomendas.toString());
+                                MenuEncomendasStaff(encomendas);
                                 break;
                             case 2:
-                                System.out.println(estatisticas.getLucroTotal(encomendas));
+                                System.out.println("O lucro total da empresa foi de " + estatisticas.getLucroTotal(encomendas, produtos) + " euros"); //barraca
                                 break;
                             case 3:
                                 estatisticas.getProdutosEmDesconto(produtos);
                                 break;
                             case 4:
-                                System.out.println(estatisticas.getClienteComMaisEncomendas(encomendas, contas));
+                                System.out.println("O cliente com mais encomendas é o cliente com NIF " + estatisticas.getClienteComMaisEncomendas(encomendas, contas) + "\n");
                                 break;
                             case 5:
-                                System.out.println(estatisticas.getProdutoMaisVendido(produtos, encomendas));
+                                System.out.println("O produto mais vendido é o produto com ID " + estatisticas.getProdutoMaisVendido(produtos, encomendas) + "\n");
                                 break;
                             case 6:
                                 break;

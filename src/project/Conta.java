@@ -73,6 +73,16 @@ public class Conta extends Pessoa implements Serializable{
             novaConta.setCliente(false);
             c.add(novaConta);
             System.out.println("Conta staff criada!");
+
+            // atualizar ficheiro
+            try {
+                ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src\\project\\files\\contas.dat"));
+                os.writeObject(c); // escrever o objeto no ficheiro
+                os.flush(); // os dados são copiados de memória para o disco
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+
             return c;
         }
 
