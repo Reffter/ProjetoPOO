@@ -121,8 +121,8 @@ public class Produto implements Serializable {
         return Objects.equals(Categoria, produto.Categoria) && Objects.equals(Designacao, produto.Designacao);
     }
 
-    //alpa -> ArrayList de Produto Auxiliar, tentar usar esta sigla quando se usa
-    //        uma arraylist dos produtos numa funcao
+    //alpa -> ArrayList de Produto Auxiliar, usar esta sigla quando se usa
+    //        uma arraylist dos produtos numa funcao;
 
     public ArrayList<Produto> addProduct(ArrayList<Produto> alpa){
         boolean doesProductExist = false;
@@ -131,7 +131,13 @@ public class Produto implements Serializable {
             System.out.println("Indique o nome do produto que pretende adicionar: ");
             Designacao = Ler.umaString();
             doesProductExist = false;
+
             for (Produto i : alpa){
+
+                /*
+                todas as strings sao convertidas para letras minusculas para que o input nao seja sensivel
+                a letras maiusculas ou minuscilas;
+                */
                 if (i.getDesignacao().toLowerCase().equals(Designacao.toLowerCase())){
                     System.out.println("Este produto ja existe!");
                     doesProductExist = true;
@@ -169,7 +175,7 @@ public class Produto implements Serializable {
 
     public ArrayList<Produto> removeProduct(ArrayList<Produto> alpa) throws Exception {
         int numero = 0;
-        numero = verificarID();
+        numero = verificarnumero();
 
         for (Produto i : alpa){
             if(i.getID() == numero){
@@ -239,7 +245,7 @@ public class Produto implements Serializable {
         double desconto = 0;
         boolean numerovalido = false;
 
-        numero = verificarID();
+        numero = verificarnumero();
         for (Produto i: alpa){
             if(i.getID()==numero){
                 System.out.println("O produto foi encontrado, introduza a percentagem de desconto que quer aplicar: ");
@@ -278,7 +284,7 @@ public class Produto implements Serializable {
         double desconto = 0;
         boolean numerovalido = false;
 
-        numero = verificarID();
+        numero = verificarnumero();
         for (Produto i: alpa){
             if(i.getID() == numero){
                 i.setPrecoVenda(i.getPrecoVenda()/((100-i.getDesconto())/100));
@@ -301,16 +307,25 @@ public class Produto implements Serializable {
         return alpa;
     }
 
-    public int verificarID(){
+
+    /*
+     funcao usada noutras funcoes que permite ao utilizador introduzir um input e verifica se
+     o input e do tipo int maior que zero;
+    */
+    public int verificarnumero(){
         int n=0;
         boolean numerovalido=false;
 
         do{
+            /*
+             assumimos que o utilizador introduziu o input correcto, desta forma evitamos erros de sair
+             do loop com um input errado caso o 'numerovalido=true;' fique dentro do 'try{}'
+            */
             numerovalido=true;
             try{
                 System.out.println("Introduza um ID valido: ");
                 n=Ler.umInt();
-                verificarnumero(n);
+                verificarnumeroinput(n);
             }
             catch(Exception e){
                 System.out.println("ID invalido!");
@@ -324,7 +339,12 @@ public class Produto implements Serializable {
         return n;
     }
 
-    public void verificarnumero(int n) throws Exception {
+
+    /*
+     funcao para mostar uma mensagem de erro caso o input seja diferente de um
+     input do tipo int e maior que 0;
+    */
+    public void verificarnumeroinput(int n) throws Exception {
         if (n < 1){
             throw new Exception("Introduza um numero maior que zero");
         }
