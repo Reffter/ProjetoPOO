@@ -3,7 +3,15 @@ package project;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+
 public class Estatistica {
+
+    /**
+     * Função para calcular o lucro total das encomendas realizadas pelos clientes
+     * @param encomendas ArrayList do tipo Produto;
+     * @param produtos ArrayList do tipo Produto;
+     * @return somatório dos lucros calculados;
+     */
     public double getLucroTotal(ArrayList<Produto> encomendas, ArrayList<Produto> produtos) {
             double somatorioLucros = 0.0;
             for(Produto encomenda: encomendas){
@@ -16,6 +24,12 @@ public class Estatistica {
             return somatorioLucros;
     }
 
+    /**
+     * Função para determinar qual o cliente que realizou mais encomendas
+     * @param encomendas ArrayList do tipo Produto;
+     * @param pessoas ArrayList do tipo Produto;
+     * @return NIF do cliente que efectuou mais encomendas;
+     */
     public int getClienteComMaisEncomendas(ArrayList<Produto> encomendas, ArrayList<Pessoa> pessoas){
         int count =  0, aux = 0, NIFpessoa = 0;
 
@@ -34,6 +48,13 @@ public class Estatistica {
         return NIFpessoa;
     }
 
+
+    /**
+     * Função que calcula qual o produto mais vendido, de entre os que se encontram no catálogo
+     * @param produtos ArrayList do tipo Produto;
+     * @param encomendas ArrayList do tipo Produto;
+     * @return Vai ser retornado o ID do produto que foi mais vendido;
+     */
     public int getProdutoMaisVendido(ArrayList<Produto> produtos, ArrayList<Produto> encomendas){ // o segundo Arraylist do tipo produto é da encomenda
         int aux = 0, count = 0, IDproduto = 0;
         for (Produto produto: produtos) {
@@ -50,6 +71,11 @@ public class Estatistica {
         return IDproduto;
     }
 
+
+    /**
+     * Função que lista quais os produtos que se enconcontram em desconto
+     * @param produtos ArrayList do tipo Produto;
+     */
     public void getProdutosEmDesconto(ArrayList<Produto> produtos){
         ArrayList<Produto> produtosDesconto = new ArrayList<Produto>();
         for (Produto produto: produtos) {

@@ -63,6 +63,12 @@ public class Encomenda extends Produto {
         return ultimo;
     }
 
+
+    /**
+     * Função que permite alterar o estado de uma encomenda efetuada
+     * @param encomendas ArrayList do tipo Produto;
+     * @return Vai ser retornada a encomenda cujo o estado foi alterado e qual a respetiva alteração;
+     */
     public ArrayList<Produto> alterarEstado(ArrayList<Produto> encomendas) {
         int lerIDencomenda = 0;
         System.out.println("Qual o ID de encomenda a alterar o estado?");
@@ -90,6 +96,14 @@ public class Encomenda extends Produto {
         return encomendas;
     }
 
+
+    /**
+     * Função que permite ao cliente realizar uma encomenda
+     * @param produtos ArrayList do tipo Produto;
+     * @param encomendas ArrayList do tipo Produto;
+     * @param NIF inteiro NIF necessário para a atribuir a encomenda realizada ao cliente que a realizou;
+     * @return A função vai retornar um Array que contem as encomendas efetuadas pelo cliente;
+     */
     public ArrayList<ArrayList<Produto>> realizarEncomenda(ArrayList<Produto> produtos, ArrayList<Produto> encomendas , int NIF){
         System.out.println("Qual o ID do produto?");
         super.setID(Ler.umInt());

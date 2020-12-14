@@ -13,6 +13,12 @@ public class Auth{
         senha_auth = "";
     }
 
+    /**
+     * Função que permite efetuar a autenticação na loja
+     * @param c ArrayList do tipo Pessoa;
+     * @param account objeto do tipo Login, que permite identificar qual o tipo de Login;
+     * @return 0 - Login não efetuado, 1 - Login efetuado como cliente, 2 - Login efetuado como administrador;
+     */
     public Login authentication(ArrayList<Pessoa> c, Login account)
     {
         System.out.println("NIF: ");
